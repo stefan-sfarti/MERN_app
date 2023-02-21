@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 
-const Todo = require('../model/todoModel')
+const Todo = require('../models/todoModel')
 
 
 const getTodo = asyncHandler(async (req, res) => {
