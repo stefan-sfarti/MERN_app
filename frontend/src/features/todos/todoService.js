@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {config} from "dotenv";
 
-const API_URL = '/api/todos/'
+const API_URL = '/api/todo/'
 
 const createTodo = async (todoData, token) => {
     const config = {
@@ -9,9 +9,14 @@ const createTodo = async (todoData, token) => {
             Authorization: `Bearer ${token}`
         }
     }
-    const response = await axios.post(API_URL, todoData, config)
+    try {
+        const response = await axios.post(API_URL, todoData, config)
+        return response.data
+    }catch (error) {
+        console.log(error)
+        throw error
+    }
 
-    return response.data
 }
 
 const todoService = {
