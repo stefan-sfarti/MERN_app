@@ -14,6 +14,7 @@ function Dashboard() {
 
     const {user} = useSelector( (state) => state.auth)
     const {todos, isLoading, isError, message} = useSelector((state) => state.todos)
+    console.log("message:", message);
     useEffect(() => {
         if (isError) {
             console.log(message)
