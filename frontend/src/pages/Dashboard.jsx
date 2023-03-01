@@ -7,7 +7,6 @@ import Spinner from "../components/Spinner"
 import {getTodos, reset} from "../features/todos/todoSlice"
 import TodoItem from "../components/TodoItem";
 
-
 function Dashboard() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -27,7 +26,7 @@ function Dashboard() {
         return () => {
             dispatch(reset())
         }
-    }, [user, navigate, dispatch, isError, message]);
+    }, [user, navigate, dispatch, isError]);
 
     if (isLoading) {
         return <Spinner />
