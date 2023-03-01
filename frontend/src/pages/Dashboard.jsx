@@ -26,7 +26,7 @@ function Dashboard() {
         return () => {
             dispatch(reset())
         }
-    }, [user, navigate, dispatch, isError]);
+    }, [user, navigate, dispatch, isError, message]);
 
     if (isLoading) {
         return <Spinner />
