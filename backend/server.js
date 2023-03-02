@@ -16,7 +16,8 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/todo', require('./routes/todoRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 
-//serve frontend
+
+serve frontend
 if (process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, '../frontend/build')))
 
