@@ -12,7 +12,6 @@
     "client": "npm start --prefix frontend",
     "dev": "NODE_OPTIONS=--openssl-legacy-provider && concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
-
   },
   "author": "Sfarti Stefan",
   "license": "ISC",
@@ -24,6 +23,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.2",
+    "nodemailer": "^6.9.1",
     "nvm": "^0.0.4"
   },
   "devDependencies": {
