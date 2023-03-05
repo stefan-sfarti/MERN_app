@@ -36,6 +36,10 @@ function Register() {
       dispatch(reset())
    }, [user, isError, isSuccess, message, navigate, dispatch])
 
+   const [showPasswordRequirements, setShowPasswordRequirements] = useState(
+       false
+   );
+
    const onChange = (e) => {
       setFormData((prevState) => ({
          ...prevState,
@@ -45,10 +49,16 @@ function Register() {
 
    const onSubmit = (e) => {
       e.preventDefault()
+      const passwordStrength = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
       if (password !== password2){
          toast.error('Passwords do not match')
-      }else {
+      }
+      else if (!passwordStrength.test(password)){
+         toast.error('Password doesn\'t meet the requirements')
+         setShowPasswordRequirements(true);
+      }
+      else {
          const userData = {
             name,
             email,
@@ -92,6 +102,16 @@ function Register() {
                       onChange={onChange}
                />
             </div>
+            {showPasswordRequirements && (
+                <small>
+                   <ul>
+                      <li className="form-text">Between 6 and 16 characters long</li>
+                      <li className="form-text">At least one number</li>
+                      <li className="form-text">At least one special character: !@#$%^&amp;*</li>
+                      <li className="form-text">At least one uppercase letter</li>
+                   </ul>
+                </small>
+            )}
 
             <div className="form-group">
                <input type='password' className='form-control'

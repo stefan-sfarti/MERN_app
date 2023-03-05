@@ -135,6 +135,19 @@ h3 {
   margin: 0 0 5px 3px;
 }
 
+.form-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.form-text::before {
+  content: "• ";
+}
+
 .btn {
   padding: 10px 20px;
   border: 1px solid #000;

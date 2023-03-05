@@ -2,6 +2,9 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const nodemailer = require('nodemailer')
+
+
 const loginUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
     //check for user email
@@ -19,6 +22,48 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
 })
+const AutoEmailer = (name, email) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            type: 'OAuth2',
+            user: process.env.MAIL,
+            pass: process.env.MAIL_PASSWORD,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN
+        }
+    });
+
+// Create an email template in HTML
+    const confirmationTemplate = `
+    <h1>Hello ${name},</h1>
+    <p>Thank you for joining ToDoApp.</p>
+    <p>We’d like to confirm that your account was created successfully.</p>
+    <p>You can now login on the following link: </p>
+    <a href="https://todoappstefan.herokuapp.com/login">Login</a>
+    `;
+
+
+// Function to send confirmation email
+    function sendConfirmationEmail(email) {
+        const mailOptions = {
+            from: 'svsfarti@gmail.com',
+            to: email,
+            subject: 'Account Registration Confirmation',
+            html: confirmationTemplate
+        };
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    }
+    sendConfirmationEmail(email)
+}
+
 
 const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body
@@ -56,6 +101,8 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('Invalid user data')
     }
+
+    AutoEmailer(user.name, user.email)
 
 })
 
